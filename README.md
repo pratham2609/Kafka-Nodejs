@@ -29,6 +29,33 @@ Before running this application, make sure you have the following installed:
    
 2. Start Zookeeper Container and expose PORT `2181`:
 
+   ```sh
+   docker run -p 2181:2181 zookeeper
+
+3. Run Kafka Locally using docker, Replace PRIVATE_IP with your IP address:
+
+   ```sh
+   docker run -p 9092:9092 \
+   -e KAFKA_ZOOKEEPER_CONNECT=<PRIVATE_IP>:2181 \
+   -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://<PRIVATE_IP>:9092 \
+   -e KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1 \
+   confluentinc/cp-kafka
+
+## Running Locally
+
+- Run Multiple Consumers:
+  
   ```sh
-  docker run -p 2181:2181 zookeeper
+  node consumer.js <GROUP_NAME>
+  
+Replace `<GROUP_NAME>` with your actual consumer group name when running the consumer script.
+
+- Create Producer:
+  
+  ```sh
+  node producer.js
+
+```sh
+> tony south
+> tony north
 
